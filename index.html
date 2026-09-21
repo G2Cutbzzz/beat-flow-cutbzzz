@@ -3,19 +3,14 @@
 <head>
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="description"
-    content="BeatFlow - Aplicación web musical con HTML, TailwindCSS y JavaScript."
-  >
+  <meta name="description" content="BeatFlow - Aplicación web musical con HTML, TailwindCSS y JavaScript.">
 
   <title>BeatFlow</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@audius/sdk@latest/dist/sdk.min.js"></script>
 
   <link rel="stylesheet" href="./css/theme.css">
   <link rel="stylesheet" href="./css/styles.css">
@@ -25,17 +20,10 @@
 
   <div class="min-h-screen lg:grid lg:grid-cols-[250px_1fr]">
 
-    <aside
-      class="hidden border-r border-white/10 bg-zinc-950
-             lg:fixed lg:inset-y-0 lg:flex lg:w-[250px] lg:flex-col"
-    >
+    <aside class="hidden border-r border-white/10 bg-zinc-950 lg:fixed lg:inset-y-0 lg:flex lg:w-[250px] lg:flex-col">
       <div class="flex h-full flex-col px-5 py-6">
 
-        <a
-          href="#"
-          class="mb-8 flex items-center gap-3"
-          aria-label="BeatFlow - Inicio"
-        >
+        <a href="#" class="mb-8 flex items-center gap-3" aria-label="BeatFlow - Inicio">
           <div class="brand-logo">B</div>
 
           <div>
@@ -50,39 +38,24 @@
         </a>
 
         <nav class="space-y-2" aria-label="Navegación principal">
-          <button
-            type="button"
-            class="nav-item nav-item-active"
-            data-view="home"
-          >
+          <button type="button" class="nav-item nav-item-active" data-view="home">
             <span>⌂</span>
             <span>Inicio</span>
           </button>
 
-          <button
-            type="button"
-            class="nav-item"
-            data-view="search"
-          >
+          <button type="button" class="nav-item" data-view="search">
             <span>⌕</span>
             <span>Buscar</span>
           </button>
 
-          <button
-            type="button"
-            class="nav-item"
-            data-view="library"
-          >
+          <button type="button" class="nav-item" data-view="library">
             <span>▥</span>
             <span>Tu biblioteca</span>
           </button>
         </nav>
 
         <div class="mt-8">
-          <p
-            class="mb-3 px-4 text-xs font-semibold uppercase
-                   tracking-[0.2em] text-zinc-600"
-          >
+          <p class="mb-3 px-4 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-600">
             Tu música
           </p>
 
@@ -99,11 +72,8 @@
           </div>
         </div>
 
-        <div
-          class="mt-auto rounded-2xl border border-white/10
-                 bg-zinc-900/80 p-4"
-        >
-          <p class="font-semibold">BeatFlow v0.1.0</p>
+        <div class="mt-auto rounded-2xl border border-white/10 bg-zinc-900/80 p-4">
+          <p class="font-semibold">BeatFlow v0.2.0</p>
           <p class="mt-1 text-sm text-zinc-500">
             Primera versión visual.
           </p>
@@ -114,14 +84,8 @@
 
     <div class="lg:col-start-2">
 
-      <header
-        class="sticky top-0 z-30 border-b border-white/10
-               bg-zinc-950/90 backdrop-blur"
-      >
-        <div
-          class="mx-auto flex max-w-7xl items-center gap-4
-                 px-4 py-4 md:px-6"
-        >
+      <header class="sticky top-0 z-30 border-b border-white/10 bg-zinc-950/90 backdrop-blur">
+        <div class="mx-auto flex max-w-7xl items-center gap-4 px-4 py-4 md:px-6">
 
           <a href="#" class="flex items-center gap-2 lg:hidden">
             <div class="brand-logo brand-logo-small">B</div>
@@ -134,10 +98,7 @@
           <label class="relative flex-1">
             <span class="sr-only">Buscar canciones</span>
 
-            <span
-              class="pointer-events-none absolute left-4 top-1/2
-                     -translate-y-1/2 text-zinc-500"
-            >
+            <span class="pointer-events-none absolute left-4 top-1/2-translate-y-1/2 text-zinc-500">
               ⌕
             </span>
 
@@ -215,23 +176,14 @@
         <div class="flex items-center gap-3">
           <button type="button" aria-label="Anterior">◀</button>
 
-          <button
-            id="play-button"
-            type="button"
-            class="grid h-11 w-11 place-items-center rounded-full
-                   bg-white text-black transition hover:scale-105"
-            aria-label="Reproducir"
-          >
+          <button id="play-button" type="button" class="grid h-11 w-11 place-items-center rounded-full bg-white text-black transition hover:scale-105" aria-label="Reproducir">
             ▶
           </button>
 
           <button type="button" aria-label="Siguiente">▶</button>
         </div>
 
-        <div
-          class="hidden w-full max-w-md items-center gap-3
-                 text-xs text-zinc-500 md:flex"
-        >
+        <div class="hidden w-full max-w-md items-center gap-3 text-xs text-zinc-500 md:flex">
           <span>1:24</span>
 
           <div class="progress-track">
@@ -253,17 +205,8 @@
     </div>
   </footer>
 
-  <nav
-    class="fixed inset-x-0 bottom-0 z-50 grid h-[68px]
-           grid-cols-3 border-t border-white/10
-           bg-zinc-950 lg:hidden"
-    aria-label="Navegación móvil"
-  >
-    <button
-      type="button"
-      class="mobile-nav-item mobile-nav-active"
-      data-view="home"
-    >
+  <nav class="fixed inset-x-0 bottom-0 z-50 grid h-[68px] grid-cols-3 border-t border-white/10 bg-zinc-950 lg:hidden" aria-label="Navegación móvil">
+    <button type="button" class="mobile-nav-item mobile-nav-active" data-view="home">
       <span class="text-xl">⌂</span>
       <span class="text-[11px]">Inicio</span>
     </button>
