@@ -1,12 +1,7 @@
 function createSearchRow(track) {
   return `
     <article class="grid grid-cols-[auto_1fr_auto] items-center gap-4 rounded-2xl p-3 transition hover:bg-zinc-900">
-      <img
-        src="${track.cover}"
-        alt="Portada de ${track.title}"
-        class="h-16 w-16 rounded-xl object-cover"
-        loading="lazy"
-      >
+      <img src="${track.cover}" alt="Portada de ${track.title}" class="h-16 w-16 rounded-xl object-cover" loading="lazy">
 
       <div class="min-w-0">
         <h3 class="truncate font-semibold">${track.title}</h3>

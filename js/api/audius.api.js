@@ -55,8 +55,24 @@ function normalizeTrack(track) {
     playCount: track.playCount || 0,
     favoriteCount: track.favoriteCount || 0,
     permalink: track.permalink || '',
+    isStreamable:track.isStreamable??track.is_streamable??true
   }
 }
+
+export function getTrackStreamUrl(trackId){
+  if(!trackId){
+    throw new Error('Track id es requerido')
+  }
+  const apiKey=APP_CONFIG.audius.apiKey
+  const params=new URLSearchParams()
+  if(apiKey&&apiKey!==''){
+    params.set('api_key',apiKey)
+  }
+  const baseUrl=`https://api.audius.co/v1/tracks/${encodeURIComponent(trackId)}/stream`
+  const query=params.toString()
+  return query?`${baseUrl}?${query}`:baseUrl
+}
+
 
 export async function getTrendingTracks() {
   const audius = getClient()
