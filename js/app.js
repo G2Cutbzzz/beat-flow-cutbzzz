@@ -22,6 +22,24 @@ import {
 } from './services/player.service.js'
 
 import {
+  addToHistory,
+  getFavorites,
+  getHistory,
+  getLastTrack,
+  getVolume,
+  isFavorite,
+  saveLastTrack,
+  saveVolume,
+  toggleFavorite,
+} from './services/storage.service.js'
+
+import {
+  renderLibrary,
+} from './ui/library.ui.js'
+
+
+
+import {
   renderHome,
 } from './ui/home.ui.js'
 
@@ -80,19 +98,9 @@ const state = {
   currentTrack: null,
   trendingTracks: [],
   searchResults: [],
+  favorites: [],
+  history: [],
   isPlaying: false,
-}
-
-async function initializeApp() {
-  registerNavigationEvents()
-  registerGlobalEvents()
-  registerPlayerEvents()
-
-  setVolume(
-    Number(volumeRange.value),
-  )
-
-  await loadHome()
 }
 
 async function loadHome() {
@@ -432,6 +440,19 @@ function registerGlobalEvents() {
       playTrack(
         button.dataset.trackId,
       )
+
+      const favoriteButton =
+  event.target.closest(
+    '.favorite-track',
+  )
+
+if (favoriteButton) {
+  handleFavorite(
+    favoriteButton.dataset.trackId,
+  )
+
+  return
+}
     },
   )
 
@@ -472,15 +493,17 @@ function registerGlobalEvents() {
   )
 
   volumeRange.addEventListener(
-    'input',
-    () => {
-      setVolume(
-        Number(
-          volumeRange.value,
-        ),
+  'input',
+  () => {
+    const volume =
+      Number(
+        volumeRange.value,
       )
-    },
-  )
+
+    setVolume(volume)
+    saveVolume(volume)
+  },
+)
 }
 
 function updateNavigationStyles() {
@@ -506,5 +529,117 @@ function updateNavigationStyles() {
       )
     })
 }
+
+
+
+async function initializeApp() {
+  state.favorites = getFavorites()
+  state.history = getHistory()
+
+  const savedVolume = getVolume() ?? Number(volumeRange.value)
+  setVolume(savedVolume)
+
+  registerNavigationEvents()
+  registerGlobalEvents()
+  registerPlayerEvents()
+
+  await loadHome()
+  restoreLastTrack()
+}
+
+function restoreLastTrack() {
+  const track =
+    getLastTrack()
+
+  if (!track) {
+    return
+  }
+
+  state.currentTrack =
+    track
+
+  playerUI.renderTrack(
+    track,
+  )
+
+  playerUI.renderFavorite(
+    isFavorite(track.id),
+  )
+}
+
+function handleFavorite(
+  trackId,
+) {
+  const track =
+    getAllKnownTracks()
+      .find(
+        (item) =>
+          item.id === trackId,
+      )
+
+  if (!track) {
+    return
+  }
+
+  state.favorites =
+    toggleFavorite(track)
+
+  if (
+    state.currentTrack?.id
+    === track.id
+  ) {
+    playerUI.renderFavorite(
+      isFavorite(track.id),
+    )
+  }
+
+  if (
+    state.currentView
+    === 'library'
+  ) {
+    renderLibraryView()
+  }
+}
+
+function renderLibraryView() {
+  state.currentView =
+    'library'
+
+  state.favorites =
+    getFavorites()
+
+  state.history =
+    getHistory()
+
+  renderLibrary({
+    target: app,
+    favorites:
+      state.favorites,
+    history:
+      state.history,
+  })
+
+  updateNavigationStyles()
+}
+
+const playerFavoriteButton =
+  document.querySelector(
+    '#player-favorite-button',
+  )
+
+playerFavoriteButton
+  ?.addEventListener(
+    'click',
+    () => {
+      if (!state.currentTrack) {
+        return
+      }
+
+      handleFavorite(
+        state.currentTrack.id,
+      )
+    },
+  )
+
 
 initializeApp()

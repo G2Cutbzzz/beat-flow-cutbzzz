@@ -192,18 +192,54 @@ footer {
   outline-offset: 4px;
 }
 
+.favorite-track {
+  transition:
+    transform var(--transition-fast),
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
 
-@media (prefers-reduced-motion: reduce) {
+.favorite-track:hover {
+  transform: scale(1.05);
+}
+
+.favorite-track[aria-pressed="true"] {
+  color: #f43f5e;
+}
+
+.player-range {
+  accent-color:
+    var(--color-brand-primary);
+}
+
+:focus-visible {
+  outline:
+    2px solid
+    var(--color-brand-primary);
+
+  outline-offset: 3px;
+}
+
+
+@media (
+  prefers-reduced-motion: reduce
+) {
   *,
   *::before,
   *::after {
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+    scroll-behavior:
+      auto !important;
+
+    transition-duration:
+      0.01ms !important;
+
+    animation-duration:
+      0.01ms !important;
+
+    animation-iteration-count:
+      1 !important;
   }
 }
-
 
 
 

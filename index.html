@@ -158,6 +158,15 @@
           Selecciona una canción
         </p>
 
+        <button
+  id="player-favorite-button"
+  type="button"
+  aria-label="Agregar a favoritos"
+  aria-pressed="false"
+>
+  ♡
+</button>
+
         <p id="player-artist" class="truncate text-xs text-zinc-500">
           BeatFlow
         </p>
@@ -194,11 +203,14 @@
           ▶
         </button>
       </div>
+        
 
       <div class="hidden w-full items-center gap-3 md:flex">
         <span id="current-time" class="w-10 text-right text-xs text-zinc-500">
           0:00
         </span>
+
+        
 
         <input
           id="progress-range"

@@ -12,6 +12,18 @@ function createTrackCard(track) {
           class="track-card-image aspect-square w-full object-cover"
           loading="lazy"
         >
+        
+        <button
+          type="button"
+          class="favorite-track absolute right-3 top-3 z-10
+                 grid h-9 w-9 place-items-center
+                 rounded-full bg-black/60 text-white transition hover:scale-110"
+          data-track-id="${track.id}"
+          aria-label="Agregar ${track.title} a favoritos"
+          aria-pressed="false"
+        >
+          ♡
+        </button>
 
         <button
           type="button"
@@ -73,6 +85,10 @@ function createRecentlyPlayedRow(track) {
       >
         ▶
       </button>
+
+      
+
+      
     </article>
   `
 }
